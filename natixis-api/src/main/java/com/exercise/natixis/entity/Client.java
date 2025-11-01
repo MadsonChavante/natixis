@@ -4,11 +4,14 @@ import java.time.LocalDate;
 
 import com.exercise.natixis.dto.ClientDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Client {
@@ -23,8 +26,12 @@ public class Client {
     @Column(nullable = false)
     private LocalDate birthDate;
 
-    @Column(name = "nif", unique = true)
+    @Column(unique = true)
     private String nif;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     public Client() {}
 
@@ -33,6 +40,11 @@ public class Client {
         this.name = dto.name();
         this.birthDate = dto.birthDate();
         this.nif = dto.nif();
+        this.address = new Address(dto.address());
+    }
+
+    public ClientDTO toDTO() {
+        return new ClientDTO(this.id, this.name, this.birthDate, this.nif, this.address.toDTO());
     }
 
     public Long getId() {

@@ -2,7 +2,9 @@ package com.exercise.natixis.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 
 public record ClientDTO(
@@ -14,5 +16,9 @@ public record ClientDTO(
     LocalDate birthDate,
 
     @NotEmpty(message = "NIF cannot be empty")
-    String nif
+    String nif,
+
+    @Valid 
+    @NotNull(message = "Address cannot be null")
+    AddressDTO address
 ) {}

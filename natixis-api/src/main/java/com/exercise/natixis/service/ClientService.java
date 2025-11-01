@@ -28,8 +28,9 @@ public class ClientService {
 		return repository.save(newClient);
 	}
 
-    public List<Client> findAll() {
-		return repository.findAll();
+	public List<ClientDTO> findAll() {
+		List<ClientDTO> clients = repository.findAll().stream().map(c -> c.toDTO()).toList();	
+		return clients;
 	}
     
 }

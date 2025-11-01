@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.natixis.dto.ClientDTO;
-import com.exercise.natixis.entity.Client;
 import com.exercise.natixis.service.ClientService;
 
 import jakarta.validation.Valid;
@@ -31,11 +30,10 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> read() {
-        List<Client> clients = service.findAll();
+    public ResponseEntity<List<ClientDTO>> read() {
+        List<ClientDTO> clients = service.findAll();
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
-    
 
 }
 
